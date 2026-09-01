@@ -23,14 +23,11 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Install dependencies
-      run: |
-        cd $(find . -maxdepth 2 -name "pubspec.yaml" -exec dirname {} \;)
-        flutter pub get
-
     - name: Build APK
       run: |
-        cd $(find . -maxdepth 2 -name "pubspec.yaml" -exec dirname {} \;)
+        TARGET_DIR=$(find . -name "pubspec.yaml" -exec dirname {} \; | head -n 1)
+        cd "$TARGET_DIR"
+        flutter pub get
         flutter build apk --release --no-pub --no-tree-shake-icons
 
     - name: Upload APK Artifact
