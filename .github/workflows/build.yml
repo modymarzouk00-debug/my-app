@@ -23,15 +23,22 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Build APK
+    - name: Find Project Directory
+      id: find-dir
       run: |
-        TARGET_DIR=$(find . -name "pubspec.yaml" -exec dirname {} \; | head -n 1)
-        cd "$TARGET_DIR"
-        flutter pub get
-        flutter build apk --release --no-pub --no-tree-shake-icons
+        DIR=$(dirname $(find . -name "pubspec.yaml" | head -n 1))
+        echo "dir=$DIR" >> $GITHUB_OUTPUT
+
+    - name: Install dependencies
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: flutter pub get
+
+    - name: Build APK
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: flutter build apk --release --no-pub --no-tree-shake-icons
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: release-apk
-        path: "**/build/app/outputs/flutter-apk/app-release.apk"
+        path: "**/build/app/outputs/flutter-apk/app-release.apk
