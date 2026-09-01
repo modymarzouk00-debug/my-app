@@ -8,6 +8,15 @@ android {
     namespace "com.example.my_app"
     compileSdkVersion flutter.compileSdkVersion
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     defaultConfig {
         applicationId "com.example.my_app"
         minSdkVersion flutter.minSdkVersion
