@@ -1,27 +1,20 @@
-plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
-android {
-    namespace "com.example.my_app"
-    compileSdkVersion flutter.compileSdkVersion
+rootProject.buildDir = '../build'
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+subprojects {
+    project.evaluationDependsOn(':app')
+}
 
-    defaultConfig {
-        applicationId "com.example.my_app"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-    }
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
