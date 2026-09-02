@@ -28,6 +28,7 @@ jobs:
         PROJECT_DIR=$(dirname $(find . -name "pubspec.yaml" -not -path "*/.*" | head -n 1))
         cd "$PROJECT_DIR"
         flutter pub get
+                sed -i '/android {/a\    namespace "com.apivideo.live_stream"' ~/.pub-cache/hosted/pub.dev/apivideo_live_stream-1.0.7/android/build.gradle
         flutter build apk --release --no-pub --no-tree-shake-icons
 
     - name: Upload APK Artifact
