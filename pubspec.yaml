@@ -39,7 +39,7 @@ dependencies:
   google_fonts: ^6.3.3
   provider: ^6.1.5+1
   flutter_animate: ^4.5.2
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:
