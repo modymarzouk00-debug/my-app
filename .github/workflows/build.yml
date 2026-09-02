@@ -29,6 +29,16 @@ jobs:
         cd "$PROJECT_DIR"
                 echo "android.newDsl=false" >> android/gradle.properties
         flutter pub get
+                flutter pub get
+
+        echo "===== gradle.properties ====="
+        cat android/gradle.properties
+        echo "===== AGP version ====="
+        grep -R "com.android.tools.build:gradle\|com.android.application" android --include="*.gradle" --include="*.gradle.kts"
+
+        sed -i '/android {/a\    namespace "com.apivideo.live_stream"' ~/.pub-cache/hosted/pub.dev/apivideo_live_stream-1.0.7/android/build.gradle
+
+        flutter build apk --release --no-pub --no-tree-shake-icons
                 sed -i '/android {/a\    namespace "com.apivideo.live_stream"' ~/.pub-cache/hosted/pub.dev/apivideo_live_stream-1.0.7/android/build.gradle
         flutter build apk --release --no-pub --no-tree-shake-icons
 
