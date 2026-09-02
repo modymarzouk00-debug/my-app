@@ -21,7 +21,7 @@ jobs:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with: 
-        flutter-version: '3.35.7'
+        channel: 'stable'
     - name: Check Flutter version
       run: flutter --version
 
@@ -30,7 +30,6 @@ jobs:
       run: |
         PROJECT_DIR=$(dirname $(find . -name "pubspec.yaml" -not -path "*/.*" | head -n 1))
         cd "$PROJECT_DIR"
-                echo "android.newDsl=false" >> android/gradle.properties
         flutter pub get
                 flutter pub get
 
